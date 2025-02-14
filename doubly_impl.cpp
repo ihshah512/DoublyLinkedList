@@ -193,3 +193,14 @@ int main() {
 
     return 0;
 }
+/*
+List after appending: A B C 
+List after prepending: D A B C 
+List after removing B: D A C 
+List after removing tail: D A 
+Node at index 1: A
+List after reversing: A D 
+List in reverse order: D A 
+
+*/
+

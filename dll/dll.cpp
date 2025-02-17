@@ -32,7 +32,7 @@ void DLL::insertAtHead(string toInsert)
     if (empty())
     {
         m_head = nodoInsertAtHead;
-        return;
+        m_tail = nodoInsertAtHead;
     }
     // Inserting of Node at the head of the DLL
     nodoInsertAtHead->m_next = m_head;
@@ -57,31 +57,31 @@ void DLL::addInBetween(string location, string toInsert)
     /*
         1. Check if the DDL is empty
         2. Check the location we are trying of access does exist
+        3. it has one node and it is location
+        4. list has one node and it is not location
+        5. lsit has multiple nodes and first one is the locaiton
+        6. List has multiple nodes and location is in the midlle
     */
 
     if (empty())
     {
         throw runtime_error("The List is empty cant access the location");
-        return;
+        //return; //there is no need of this because we dont have return value and program will not getinto this
     }
-    Node *temp = m_head;
-
-    while (temp->m_next != nullptr && temp->m_data != location)
-    {
+    Node * temp = m_head;
+    while(temp != nullptr && temp->m_data != location){
         temp = temp->m_next;
     }
-
-    if (temp == nullptr)
-    {
-        throw runtime_error("The location we are trying to access does not exsits");
+    if(temp == nullptr){
+        throw runtime_error("The position we are looking for does not exist");
     }
-    // Is any of these lines of code necessary * ones
-    Node *nodeToInsert = new Node;
-    nodeToInsert->m_data = toInsert;
-    nodeToInsert->m_next = temp->m_next;
-    nodeToInsert->m_previous = temp;
-    temp->m_next->m_previous = nodeToInsert; //*** */uncessary??
-    temp->m_next = nodeToInsert;             //** */
+
+    Node * nodeToAdd = new Node(toInsert);
+    nodeToAdd->m_data = toInsert;
+    nodeToAdd->m_next=temp->m_next;
+    temp = nodeToAdd->m_previous;
+    nodeToAdd=temp;
+
 }
 
 bool DLL::empty() const
